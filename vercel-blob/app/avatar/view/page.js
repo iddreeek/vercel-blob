@@ -1,6 +1,7 @@
 import { list } from '@vercel/blob';
 import Image from 'next/image';
  
+export const revalidate = 6;
 export default async function Images() {
   async function allImages() {
     const blobs = await list();
