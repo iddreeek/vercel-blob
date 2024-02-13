@@ -1,5 +1,6 @@
 'use client';
  
+import Image from 'next/image';
 import { useState, useRef } from 'react';
  
 export default function AvatarUploadPage() {
@@ -34,6 +35,7 @@ export default function AvatarUploadPage() {
       {blob && (
         <div>
           Blob url: <a href={blob.url}>{blob.url}</a>
+          <Image src={blob.url}></Image>
         </div>
       )}
     </>
