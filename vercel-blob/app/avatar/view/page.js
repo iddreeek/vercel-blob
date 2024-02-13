@@ -1,4 +1,5 @@
 import { list } from "@vercel/blob";
+import Image from "next/image";
 
 export default async function Page() {
   const response = await list();
@@ -7,10 +8,9 @@ export default async function Page() {
     <>
       {response.blobs.map((blob) => (
         <div key={blob.pathname}>
+          <Image src={blob.pathname}></Image>
           <img src={blob.pathname}></img>
-          <a  href={blob.downloadUrl}>
-            {blob.pathname} try
-          </a>
+          <a href={blob.downloadUrl}>{blob.pathname} try</a>
         </div>
       ))}
     </>
