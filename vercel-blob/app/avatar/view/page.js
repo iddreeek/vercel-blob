@@ -1,15 +1,17 @@
-import { list } from '@vercel/blob';
- 
+import { list } from "@vercel/blob";
+
 export default async function Page() {
   const response = await list();
- 
+
   return (
     <>
       {response.blobs.map((blob) => (
-        <a key={blob.pathname} href={blob.downloadUrl}>
-            <img src={blob.pathname}></img>
-          {blob.pathname} try
-        </a>
+        <div key={blob.pathname}>
+          <img src={blob.pathname}></img>
+          <a  href={blob.downloadUrl}>
+            {blob.pathname} try
+          </a>
+        </div>
       ))}
     </>
   );
