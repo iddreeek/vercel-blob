@@ -9,7 +9,7 @@ export default async function Page() {
         <div key={blob.pathname}>
           <Image src={blob.url} width={200} height={200}></Image>
           <img src={blob.url}></img>
-          <a href={blob.downloadUrl}>{blob.pathname} try</a>
+          <a href={blob.downloadUrl}>{blob.pathname} try lang </a>
         </div>
       ))}
     </>
