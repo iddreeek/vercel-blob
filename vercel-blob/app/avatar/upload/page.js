@@ -1,41 +1,22 @@
-'use client';
-
-import { useState, useRef } from 'react';
-
-export default function AvatarUploadPage() {
-  const inputFileRef = useRef(null);
-  const [blob, setBlob] = useState(null);
+import { put } from '@vercel/blob';
+import { revalidatePath } from 'next/cache';
+ 
+export async function Form() {
+  async function uploadImage(formData) {
+    'use server';
+    const imageFile = formData.get('image');
+    const blob = await put(imageFile.name, imageFile, {
+      access: 'public',
+    });
+    revalidatePath('/');
+    return blob;
+  }
+ 
   return (
-    <>
-      <h1>Upload Your Avatar</h1>
-
-      <form
-        onSubmit={async (event) => {
-          event.preventDefault();
-
-          const file = inputFileRef.current.files[0];
-
-          const response = await fetch(
-            `/api/avatar/upload?filename=${file.name}`,
-            {
-              method: 'POST',
-              body: file,
-            },
-          );
-
-          const newBlob = await response.json()
-
-          setBlob(newBlob);
-        }}
-      >
-        <input name="file" ref={inputFileRef} type="file" required />
-        <button type="submit">Upload</button>
-      </form>
-      {blob && (
-        <div>
-          Blob url: <a href={blob.url}>{blob.url}</a>
-        </div>
-      )}
-    </>
+    <form action={uploadImage}>
+      <label htmlFor="image">Image</label>
+      <input type="file" id="image" name="image" required />
+      <button>Upload</button>
+    </form>
   );
 }
