@@ -1,16 +1,25 @@
-import { list } from "@vercel/blob";
-import Image from "next/image";
-
-export default async function Page() {
-  const response = await list();
+import { list } from '@vercel/blob';
+import Image from 'next/image';
+ 
+export default async function Images() {
+  async function allImages() {
+    const blobs = await list();
+    return blobs;
+  }
+  const images = await allImages();
+ 
   return (
-    <>
-      {response.blobs.map((blob) => (
-        <div key={blob.pathname}>
-          {blob.pathname}
-          <Image src={blob.url} width={50} height={50}></Image>
-        </div>
+    <section>
+      {images.blobs.map((image) => (
+        <Image
+          priority
+          key={image.pathname}
+          src={image.url}
+          alt="Image"
+          width={50}
+          height={50}
+        />
       ))}
-    </>
+    </section>
   );
 }
