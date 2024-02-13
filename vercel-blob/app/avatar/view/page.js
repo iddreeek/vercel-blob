@@ -2,7 +2,7 @@ import { list } from "@vercel/blob";
 import Image from "next/image";
 
 export default async function Page() {
-  const response = await list();
+  const response = await list('', { next: { revalidate: 1 } });
   return (
     <>
       {response.blobs.map((blob) => (
