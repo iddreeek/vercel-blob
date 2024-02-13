@@ -1,6 +1,7 @@
 import { handleUpload } from '@vercel/blob/client';
 import { NextResponse } from 'next/server';
  
+export const revalidate = 1;
 export async function POST(request) {
   const body = await request.json();
  
