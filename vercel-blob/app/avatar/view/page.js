@@ -7,6 +7,7 @@ export default async function Page() {
     <>
       {response.blobs.map((blob) => (
         <a key={blob.pathname} href={blob.downloadUrl}>
+            <img src={blob.pathname}></img>
           {blob.pathname}
         </a>
       ))}
